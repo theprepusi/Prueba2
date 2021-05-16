@@ -30,33 +30,34 @@
 
 <body>
     <div class="modal-dialog text-center">
+      <H1 style="color:#080808;" >Registrate</H1>
         <div class="col-sm-8 main-section">
             <div class="modal-content">
                 <div class="col-12 user-img">
                     <img src="../Imágenes/user.png">
                 </div>
-                <form class="col-12" method="post" action="" id="formi">
+                <form class="col-12" method="post" action="submit.action" id="formi">
                     <div class="form-group" id="nombre-group">
-                        <input type="text" class="validate[required] form-control" id="nombre" name="nombre" placeholder="Ingrese su nombre" data-errormessage-value-missing="Nombre completo es obligatorio" value=""
-                        data-errormessage-custom-error="El usuario debe tener entre 4 y 16 carácteres" />
+                        <input type="text" class="validate[required,minSize[4],maxSize[16]] form-control" id="nombre" name="nombre" placeholder="Ingrese su nombre" data-errormessage-value-missing="Nombre es obligatorio -" value=""
+                        data-errormessage-range-underflow="El usuario debe tener entre 4 y 16 carácteres" data-prompt-position="bottomRight: 110,-65" />
                     </div>
                     <div class="form-group" id="correo-group">
-                        <input type="email" class="validate[required] form-control" id="correo" name="correo" placeholder="Ingrese su correo" data-errormessage-value-missing="Su correo es obligatorio" value=""
-                        data-errormessage-custom-error="Ejemplo: ejemplo@gmail.com" />
+                        <input type="email" class="validate[required,custom[email]] form-control" id="correo" name="correo" placeholder="Ingrese su correo" data-errormessage-value-missing="Su correo es obligatorio" value=""
+                        data-errormessage-custom-error="Ejemplo: ejemplo@gmail.com" data-prompt-position="bottomRight: 110,-30" />
                     </div>
                     <div class="form-group" id="clave-group">
-                        <input type="password" class="validate[required] form-control" id="clave" name="clave" placeholder="Ingrese su clave" data-errormessage-value-missing="Su clave es obligatoria" value=""
-                        data-errormessage-custom-error="La clave debe tener entre 8 a 16 carácteres" />
+                        <input type="password" class="validate[required,minSize[8],maxSize[16]] form-control" id="clave" name="clave" placeholder="Ingrese su clave" data-errormessage-value-missing="Su clave es obligatoria" value=""
+                        data-errormessage-range-underflow="La clave debe tener entre 8 a 16 carácteres" data-prompt-position="bottomRight: 110,-40" />
                     </div>
                     <div class="form-group" id="clave2-group">
-                        <input type="password" class="validate[required] form-control" id="clave2" name="clave2" placeholder="Confirme su clave" data-errormessage-value-missing="Debe confirmar su clave" value="" />
+                        <input type="password" class="validate[required,equals[clave]] form-control" id="clave2" name="clave2" placeholder="Confirme su clave" data-errormessage-value-missing="Debe confirmar su clave" value="" data-errormessage-pattern-mismatch="Las claves no coinciden" data-prompt-position="bottomRight: 110,-5" />
                     </div>
                     <!--BOTONES-->
-                    <button type="submit" class="btn btn-dark"><i class="fas fa-sign-in-alt"></i>   Validar</button>
-                    <button type="reset" class="btn btn-danger"><i class="fas fa-sign-in-alt"></i>   Limpiar</button>
+                    <button type="submit" class="btn btn-dark"><i class="fas fa-sign-in-alt" id="validar"></i>   Validar</button>
+                    <button type="reset" class="btn btn-danger"><i class="fab fa-digital-ocean" id="limpiar"></i>   Limpiar</button>
                 </form>
                 <div class="col-12 volver">
-                    <a href="#">Volver</a>
+                    <a href="SigIn.html">Volver</a>
                 </div>
             </div>
         </div>
@@ -78,9 +79,7 @@
 
   <script>
     $(document).ready(function () {
-
-      $('#error').validationEngine('hide');
-      $("#formi").validationEngine();
+      $("#formi").validationEngine('attach', { showArrow:false,showArrowOnRadioAndCheckbox:false,showPrompts:true,doNotShowAllErrosOnSubmit:false });
     });
   </script>
 

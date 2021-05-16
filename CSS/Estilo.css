@@ -82,6 +82,8 @@ button{
     color: white;
 }
 
+input.valid { border: 1px solid green; background: green; }
+
 
 
 
