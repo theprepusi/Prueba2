@@ -60,8 +60,9 @@
               data-errormessage-pattern-mismatch="Las claves no coinciden" data-prompt-position="bottomRight: 110,-5" />
           </div>
           <!--BOTONES-->
-          <button type="submit" class="btn btn-dark"><i class="fas fa-sign-in-alt" id="validar"></i> Validar</button>
+          <button type="submit" class="btn btn-dark" id="validate"><i class="fas fa-sign-in-alt" id="validar" href ></i> Validar</button>
           <button type="reset" class="btn btn-danger"><i class="fab fa-digital-ocean" id="limpiar"></i> Limpiar</button>
+          <button type="button" class="btn btn-success" id="registro"> Registrarse </button>
         </form>
         <div class="col-12 volver">
           <a href="SigIn.html">Volver</a>
@@ -108,6 +109,19 @@
       $.ajax(settings).done(function (response) {
         json = JSON.parse(response);
         console.log('El usuario ya existe', json.errorUsername);
+      });
+
+      $(function () {
+        let ocultois = false;
+        $('#validar').click(function(){
+          if (ocultois) {
+            $('#registro').show();
+          } else {
+            $('#registro').hide();
+          }
+          
+
+        });
       });
 
       $("#formi").validationEngine('attach', { showArrow: false, showArrowOnRadioAndCheckbox: false, showPrompts: true 
