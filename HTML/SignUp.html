@@ -106,7 +106,8 @@
       };
 
       $.ajax(settings).done(function (response) {
-        console.log(response);
+        json = JSON.parse(response);
+        console.log('El usuario ya existe', json.errorUsername);
       });
 
       $("#formi").validationEngine('attach', { showArrow: false, showArrowOnRadioAndCheckbox: false, showPrompts: true 

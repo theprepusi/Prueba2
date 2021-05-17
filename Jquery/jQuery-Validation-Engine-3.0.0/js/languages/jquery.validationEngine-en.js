@@ -10,6 +10,7 @@
                     "alertTextCheckboxMultiple": "* Please select an option",
                     "alertTextCheckboxe": "* This checkbox is required",
                     "alertTextDateRange": "* Both date range fields are required"
+                    
                 },
                 "requiredInFunction": { 
                     "func": function(field, rules, i, options){
@@ -154,13 +155,13 @@
                     "alertTextLoad": "* Validating, please wait"
                 },
 				"ajaxUserCallPhp": {
-                    "url": "phpajax/ajaxValidateFieldUser.php",
+                    "url": "http://nriverv.pythonanywhere.com/api/v1/validation/all/",
                     // you may want to pass extra data on the ajax call
-                    "extraData": "name=eric",
+                    "extraData": "username=nicolas",
                     // if you provide an "alertTextOk", it will show as a green prompt when the field validates
-                    "alertTextOk": "* This username is available",
-                    "alertText": "* This user is already taken",
-                    "alertTextLoad": "* Validating, please wait"
+                    "alertTextOk": "* Nombre disponible",
+                    "alertText": "* Nombre en uso",
+                    "alertTextLoad": "* Validando.."
                 },
                 "ajaxNameCall": {
                     // remote json service location
@@ -174,11 +175,11 @@
                 },
 				 "ajaxNameCallPhp": {
 	                    // remote json service location
-	                    "url": "phpajax/ajaxValidateFieldName.php",
+	                    "url": "http://nriverv.pythonanywhere.com/api/v1/validation/all/",
 	                    // error
-	                    "alertText": "* This name is already taken",
+	                    "alertText": "* El usuario ya está registrado ",
 	                    // speaks by itself
-	                    "alertTextLoad": "* Validating, please wait"
+	                    "alertTextLoad": "* Validando.."
 	                },
                 "validate2fields": {
                     "alertText": "* Please input HELLO"
