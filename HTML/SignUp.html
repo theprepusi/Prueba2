@@ -22,53 +22,60 @@
 
   <!--FONTAWESOME-->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
-  <script src="https://kit.fontawesome.com/4a8c9d2193.js" crossorigin="anonymous"></script>  
+  <script src="https://kit.fontawesome.com/4a8c9d2193.js" crossorigin="anonymous"></script>
 
 
 </head>
 
 
 <body>
-    <div class="modal-dialog text-center">
-      <H1 style="color:#080808;" >Registrate</H1>
-        <div class="col-sm-8 main-section">
-            <div class="modal-content">
-                <div class="col-12 user-img">
-                    <img src="../Imágenes/user.png">
-                </div>
-                <form class="col-12" method="post" action="submit.action" id="formi">
-                    <div class="form-group" id="nombre-group">
-                        <input type="text" class="validate[required,minSize[4],maxSize[16]] form-control" id="nombre" name="nombre" placeholder="Ingrese su nombre" data-errormessage-value-missing="Nombre es obligatorio -" value=""
-                        data-errormessage-range-underflow="El usuario debe tener entre 4 y 16 carácteres" data-prompt-position="bottomRight: 110,-65" />
-                    </div>
-                    <div class="form-group" id="correo-group">
-                        <input type="email" class="validate[required,custom[email]] form-control" id="correo" name="correo" placeholder="Ingrese su correo" data-errormessage-value-missing="Su correo es obligatorio" value=""
-                        data-errormessage-custom-error="Ejemplo: ejemplo@gmail.com" data-prompt-position="bottomRight: 110,-30" />
-                    </div>
-                    <div class="form-group" id="clave-group">
-                        <input type="password" class="validate[required,minSize[8],maxSize[16]] form-control" id="clave" name="clave" placeholder="Ingrese su clave" data-errormessage-value-missing="Su clave es obligatoria" value=""
-                        data-errormessage-range-underflow="La clave debe tener entre 8 a 16 carácteres" data-prompt-position="bottomRight: 110,-40" />
-                    </div>
-                    <div class="form-group" id="clave2-group">
-                        <input type="password" class="validate[required,equals[clave]] form-control" id="clave2" name="clave2" placeholder="Confirme su clave" data-errormessage-value-missing="Debe confirmar su clave" value="" data-errormessage-pattern-mismatch="Las claves no coinciden" data-prompt-position="bottomRight: 110,-5" />
-                    </div>
-                    <!--BOTONES-->
-                    <button type="submit" class="btn btn-dark"><i class="fas fa-sign-in-alt" id="validar"></i>   Validar</button>
-                    <button type="reset" class="btn btn-danger"><i class="fab fa-digital-ocean" id="limpiar"></i>   Limpiar</button>
-                </form>
-                <div class="col-12 volver">
-                    <a href="SigIn.html">Volver</a>
-                </div>
-            </div>
+  <div class="modal-dialog text-center">
+    <H1 style="color:#080808;">Registrate</H1>
+    <div class="col-sm-8 main-section">
+      <div class="modal-content">
+        <div class="col-12 user-img">
+          <img src="../Imágenes/user.png">
         </div>
-
+        <form class="col-12" method="post" action="submit.action" id="formi">
+          <div class="form-group" id="nombre-group">
+            <input type="text" class="validate[required,minSize[4],maxSize[16]] form-control" id="nombre" name="nombre"
+              placeholder="Ingrese su nombre" data-errormessage-value-missing="Nombre es obligatorio -" value=""
+              data-errormessage-range-underflow="El usuario debe tener entre 4 y 16 carácteres"
+              data-prompt-position="bottomRight: 110,-65" />
+          </div>
+          <div class="form-group" id="correo-group">
+            <input type="email" class="validate[required,custom[email]] form-control" id="correo" name="correo"
+              placeholder="Ingrese su correo" data-errormessage-value-missing="Su correo es obligatorio" value=""
+              data-errormessage-custom-error="Ejemplo: ejemplo@gmail.com" data-prompt-position="bottomRight: 110,-30" />
+          </div>
+          <div class="form-group" id="clave-group">
+            <input type="password" class="validate[required,minSize[8],maxSize[16]] form-control" id="clave"
+              name="clave" placeholder="Ingrese su clave" data-errormessage-value-missing="Su clave es obligatoria"
+              value="" data-errormessage-range-underflow="La clave debe tener entre 8 a 16 carácteres"
+              data-prompt-position="bottomRight: 110,-40" />
+          </div>
+          <div class="form-group" id="clave2-group">
+            <input type="password" class="validate[required,equals[clave]] form-control" id="clave2" name="clave2"
+              placeholder="Confirme su clave" data-errormessage-value-missing="Debe confirmar su clave" value=""
+              data-errormessage-pattern-mismatch="Las claves no coinciden" data-prompt-position="bottomRight: 110,-5" />
+          </div>
+          <!--BOTONES-->
+          <button type="submit" class="btn btn-dark"><i class="fas fa-sign-in-alt" id="validar"></i> Validar</button>
+          <button type="reset" class="btn btn-danger"><i class="fab fa-digital-ocean" id="limpiar"></i> Limpiar</button>
+        </form>
+        <div class="col-12 volver">
+          <a href="SigIn.html">Volver</a>
+        </div>
+      </div>
     </div>
+
+  </div>
 
 
   <!--SCRIPTS-->
 
   <!--JQUERY 3.4.1-->
-  <script src="../Jquery/jQuery-Validation-Engine-3.0.0/js/jquery-1.8.2.min.js" type="text/javascript"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="../Jquery/jQuery-Validation-Engine-3.0.0/js/jquery.validationEngine.js"></script>
   <script src="../Jquery/jQuery-Validation-Engine-3.0.0/js/languages/jquery.validationEngine-en.js"
     type="text/javascript" charset="utf-8"></script>
@@ -77,9 +84,34 @@
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>
 
-  <script>
+  <!--JqueryOn-->
+  <script type="text/javascript">
     $(document).ready(function () {
-      $("#formi").validationEngine('attach', { showArrow:false,showArrowOnRadioAndCheckbox:false,showPrompts:true,doNotShowAllErrosOnSubmit:false });
+      console.log('Jquery funcionando')
+
+      //Validación
+      var form = new FormData();
+      form.append("username", "nicolas");
+      form.append("email", "nicolas@gmail.com");
+      form.append("password1", "12345678");
+      form.append("password2", "12345678");
+
+      var settings = {
+        "url": "http://nriverv.pythonanywhere.com/api/v1/validation/all/",
+        "method": "POST",
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+      });
+
+      $("#formi").validationEngine('attach', { showArrow: false, showArrowOnRadioAndCheckbox: false, showPrompts: true 
+      });
+
     });
   </script>
 
