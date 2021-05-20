@@ -45,6 +45,7 @@
 
               <div class="alert alert-danger" role="alert" id="error-user">El usuario debe tener entre 4 y 16 carácteres</div>
               <div class="alert alert-danger" role="alert" id="error-user2">Usuario ya existente</div>
+              <div class="alert alert-danger" role="alert" id="error-user3">Nombre es obligatorio</div>
           </div>
 
           <div class="form-group" id="correo-group">
@@ -54,6 +55,7 @@
 
               <div class="alert alert-danger" role="alert" id="error-correo">Correo ya existente</div>
               <div class="alert alert-danger" role="alert" id="error-correo2">Correo inválido</div>
+              <div class="alert alert-danger" role="alert" id="error-correo3">Correo es obligatorio</div>
           </div>
           <div class="form-group" id="clave-group">
             <input type="password" class="validate[required] form-control" id="clave"
@@ -62,6 +64,7 @@
               data-prompt-position="bottomRight: 110,-40" />
               <div class="alert alert-danger" role="alert" id="error-password">La contraseña debe tener entre 8 y 16 carácteres</div>
               <div class="alert alert-danger" role="alert" id="error-password2">Cáracteres inválidos</div>
+              <div class="alert alert-danger" role="alert" id="error-password3">Clave es obligatoria</div>
           </div>
           <div class="form-group" id="clave2-group">
             <input type="password" class="validate[required,equals[clave]] form-control" id="clave2" name="clave2"
@@ -101,26 +104,38 @@
       console.log('Jquery funcionando')
 
       $('#error-user').hide();
+      $('#error-user2').hide();
+      $('#error-user3').hide();
       $('#error-password').hide();
       $('#error-password2').hide();
+      $('#error-password3').hide();
       $('#error-conf').hide();
-      $('#error-user2').hide();
       $('#error-correo').hide();
       $('#error-correo2').hide();
+      $('#error-correo3').hide();
+      $('#registro').hide();
 
       $('#limpiar').click(function(){
         $('#error-user').hide();
+        $('#error-user2').hide(); 
+        $('#error-user3').hide(); 
         $('#error-password').hide();
         $('#error-password2').hide();
+        $('#error-password3').hide();
         $('#error-conf').hide();
-        $('#error-user2').hide(); 
         $('#error-correo').hide();
-        $('#error-correo2').hide(); 
+        $('#error-correo2').hide();
+        $('#error-correo3').hide();
+        $('#registro').hide(); 
       });
       
       $('#validate').click(function(){
         event.preventDefault();
-        var nombre = $('#nombre').val().trim();  
+        var nombre = $('#nombre').val().trim();
+        var clave = $('#clave').val();
+        var clave2 = $('#clave2').val();
+        var correo = $('#correo').val();
+          
 
         if(!(nombre.length <=4 && nombre.length>=16)){
           $('error-user').show();
@@ -128,10 +143,13 @@
           $('error-user').hide();
         }
 
-        console.log('nombre: ', nombre);
+        if(nombre.length==0){
+          $('error-user3').show();
+        }else{
+          $('error-user3').hide();
+        }
 
-        var clave = $('#clave').val();
-        var clave2 = $('#clave2').val();
+        console.log('nombre: ', nombre);
 
         if (clave !== clave2){
           $('error-conf').show();
@@ -145,7 +163,21 @@
           $('error-password').hide();
         }
 
+        if(clave.length==0){
+          $('error-password3').show();
+        }else{
+          $('error-password3').hide();
+        }
+
         console.log('clave: ', clave);
+
+        if(correo.length==0){
+          $('error-correo3').show();
+        }else{
+          $('error-correo3').hide();
+        }
+
+        console.log('correo: ', correo);
 
       
         var form = new FormData();
@@ -181,31 +213,42 @@
           if(respuesta_json.errorPassword){
             $('#error-password2').show();
           }else{
-            $('#error-passowrd2').hide();
+            $('#error-password2').hide();
           }
 
-          windows.location = 'home.html';
-        }).fail(function(){
+          windows.location = 'SigIn.html';
              
         });   
 
-        function validarCorreo($correo) {
+        function validateCorreo($correo) {
           var Regcorreo =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return Regcorreo.test( $correo );
+          var CorreoValido = Regcorreo.test(correo);
+          if (CorreoValido==true){
+            $('#error-correo2').show();
+          }else{
+            $('#error-correo2').hide();
+          }
         }
-        console.log('Validar correo', validarCorreo('Ejemplo: ejemplo@gmail.com'));
+        console.log('Validar correo: ', validateCorreo(correo));
 
-        function validarPassword($clave) {
+        function validatePassword($clave) {
           var Regclave =/^[\-\+]?\d+$/;
           return Regclave.test( $clave );
+          var ClaveValida = Regclave.test(clave);
+          if (ClaveValida==true){
+            $('#error-password2').show();
+          }else{
+            $('#error-password2').hide();
+          }
         }
-        console.log('Validar clave', validarPassword('Cáracteres inválidos'));
+        console.log('Validar clave: ', validatePassword(clave));
 
         $("#formi").validationEngine('attach', { showArrow: false, showArrowOnRadioAndCheckbox: false, showPrompts: true
         });
         
-        
       });
+
     });
   </script>
 

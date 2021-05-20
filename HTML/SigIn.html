@@ -36,21 +36,30 @@
                 <div class="col-12 user-img">
                     <img src="../Imágenes/user.png">
                 </div>
-                <form class="col-12" method="post" action="submit.action" id="formi">
-                    <div class="form-group" id="nombre-group">
-                        <input type="text" class="validate[required,minSize[4],maxSize[16],ajax[ajaxNameCallPhp]] form-control" id="nombre" name="nombre" placeholder="Ingrese su nombre" data-errormessage-value-missing="Nombre es obligatorio -" value=""
-                        data-errormessage-range-underflow="El usuario debe tener entre 4 y 16 carácteres" data-prompt-position="bottomRight: 110,-65" />
-                    </div>
-                    <div class="form-group" id="clave-group">
-                        <input type="password" class="validate[required,minSize[8],maxSize[16],ajax[]] form-control" id="clave" name="clave" placeholder="Ingrese su clave" data-errormessage-value-missing="Su clave es obligatoria" value=""
-                        data-errormessage-range-underflow="La clave debe tener entre 8 a 16 carácteres" data-prompt-position="bottomRight: 110,-40" />
-                    </div>
+                <form class="col-12" method="post" action="" id="formi">
+                  <div class="form-group" id="nombre-group">
+                    <input type="text" class="validate[required] form-control" id="usuario" name="usuario"
+                      placeholder="Ingrese su usuario" data-errormessage-value-missing="Nombre es obligatorio"
+                      value=""
+                      data-prompt-position="bottomRight: 110,-65" />
+        
+                      <div class="alert alert-danger" role="alert" id="error-user">El usuario debe tener entre 4 y 16 carácteres</div>
+                      <div class="alert alert-danger" role="alert" id="error-user2">El usuario es obligatorio</div>
+                  </div>
+                  <div class="form-group" id="clave-group">
+                    <input type="password" class="validate[required] form-control" id="clave"
+                      name="clave" placeholder="Ingrese su clave" data-errormessage-value-missing="Su clave es obligatoria"
+                      value=""
+                      data-prompt-position="bottomRight: 110,-40" />
+                      <div class="alert alert-danger" role="alert" id="error-password">La contraseña debe tener entre 8 y 16 carácteres</div>
+                      <div class="alert alert-danger" role="alert" id="error-password2">La clave es obligatoria</div>
+                  </div>
                     <!--BOTONES-->
-                    <button type="button" class="btn btn-dark"><i class="fas fa-sign-in-alt" id="validar"></i>   Validar</button>
-                    <button type="reset" class="btn btn-danger"><i class="fab fa-digital-ocean" id="limpiar"></i>   Limpiar</button>
+                    <button type="submit" class="btn btn-dark" id="login"><i class="fas fa-sign-in-alt"></i>   Login</button>
+                    <button type="reset" class="btn btn-danger" id="limpiar"><i class="fab fa-digital-ocean"></i>   Limpiar</button>
                 </form>
                 <div class="col-12 volver">
-                    <a href="SignUp.html">Volver</a>
+                    <a href="SignUp.html">¿No tienes cuenta?</a>
                 </div>
             </div>
         </div>
@@ -70,11 +79,87 @@
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>
 
-  <script>
+  <!--JqueryOn-->
+  <script type="text/javascript">
     $(document).ready(function () {
-      $("#formi").validationEngine('attach', { showArrow:false,showArrowOnRadioAndCheckbox:false,showPrompts:true,doNotShowAllErrosOnSubmit:false });
+      console.log('Jquery funcionando')
+
+      $('#error-user').hide();
+      $('#error-user2').hide();
+      $('#error-password').hide();
+      $('#error-password2').hide();
+      $('#registro').hide();
+
+      $('#limpiar').click(function(){
+        $('#error-user').hide();
+        $('#error-user2').hide();
+        $('#error-password').hide();
+        $('#error-password2').hide();
+        $('#registro').hide(); 
+      });
+      
+      $('#login').click(function(){
+        event.preventDefault();
+        var usuario = $('#usuario').val();
+        var clave = $('#clave').val();
+          
+        if(!(usuario.length <=4 && usuario.length>=16)){
+          $('error-user').show();
+        }else{
+          $('error-user').hide();
+        }
+
+        if(usuario.length==0){
+          $('error-user2').show();
+        }else{
+          $('error-user2').hide();
+        }
+
+        console.log('usuario: ', usuario);
+
+        if(!(clave.length <=8 && clave.length>=16)){
+          $('error-password').show();
+        }else{
+          $('error-password').hide();
+        }
+
+        if(clave.length==0){
+          $('error-password2').show();
+        }else{
+          $('error-password2').hide();
+        }
+
+        console.log('clave: ', clave);
+
+      
+        var form = new FormData();
+        form.append("username", usuario);
+        form.append("password", clave);
+
+        var settings = {
+          "url": "http://nriverv.pythonanywhere.com/api/v1/signin/",
+          "method": "POST",
+          "processData": false,
+          "mimeType": "multipart/form-data",
+          "contentType": false,
+          "data": form
+        };
+
+        $.ajax(settings).done(function (response) {
+          var respuesta_json = JSON.parse(response);
+
+          windows.location = 'Home.html';
+        });   
+
+        $("#formi").validationEngine('attach', { showArrow: false, showArrowOnRadioAndCheckbox: false, showPrompts: true
+        });
+        
+      });
+
     });
   </script>
+              
+              
 
 </body>
 
