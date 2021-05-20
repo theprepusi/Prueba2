@@ -36,32 +36,42 @@
         <div class="col-12 user-img">
           <img src="../Imágenes/user.png">
         </div>
-        <form class="col-12" method="post" action="submit.action" id="formi">
+        <form class="col-12" method="post" action="" id="formi">
           <div class="form-group" id="nombre-group">
-            <input type="text" class="validate[required,minSize[4],maxSize[16]] form-control" id="nombre" name="nombre"
-              placeholder="Ingrese su nombre" data-errormessage-value-missing="Nombre es obligatorio -" value=""
-              data-errormessage-range-underflow="El usuario debe tener entre 4 y 16 carácteres"
+            <input type="text" class="validate[required] form-control" id="nombre" name="nombre"
+              placeholder="Ingrese su nombre" data-errormessage-value-missing="Nombre es obligatorio"
+              value=""
               data-prompt-position="bottomRight: 110,-65" />
+
+              <div class="alert alert-danger" role="alert" id="error-user">El usuario debe tener entre 4 y 16 carácteres</div>
+              <div class="alert alert-danger" role="alert" id="error-user2">Usuario ya existente</div>
           </div>
+
           <div class="form-group" id="correo-group">
             <input type="email" class="validate[required,custom[email]] form-control" id="correo" name="correo"
               placeholder="Ingrese su correo" data-errormessage-value-missing="Su correo es obligatorio" value=""
               data-errormessage-custom-error="Ejemplo: ejemplo@gmail.com" data-prompt-position="bottomRight: 110,-30" />
+
+              <div class="alert alert-danger" role="alert" id="error-correo">Correo ya existente</div>
+              <div class="alert alert-danger" role="alert" id="error-correo2">Correo inválido</div>
           </div>
           <div class="form-group" id="clave-group">
-            <input type="password" class="validate[required,minSize[8],maxSize[16]] form-control" id="clave"
+            <input type="password" class="validate[required] form-control" id="clave"
               name="clave" placeholder="Ingrese su clave" data-errormessage-value-missing="Su clave es obligatoria"
-              value="" data-errormessage-range-underflow="La clave debe tener entre 8 a 16 carácteres"
+              value=""
               data-prompt-position="bottomRight: 110,-40" />
+              <div class="alert alert-danger" role="alert" id="error-password">La contraseña debe tener entre 8 y 16 carácteres</div>
+              <div class="alert alert-danger" role="alert" id="error-password2">Cáracteres inválidos</div>
           </div>
           <div class="form-group" id="clave2-group">
             <input type="password" class="validate[required,equals[clave]] form-control" id="clave2" name="clave2"
               placeholder="Confirme su clave" data-errormessage-value-missing="Debe confirmar su clave" value=""
               data-errormessage-pattern-mismatch="Las claves no coinciden" data-prompt-position="bottomRight: 110,-5" />
+              <div class="alert alert-danger" role="alert" id="error-conf">!Las claves tienen que ser iguales¡</div>
           </div>
           <!--BOTONES-->
-          <button type="submit" class="btn btn-dark" id="validate"><i class="fas fa-sign-in-alt" id="validar" href ></i> Validar</button>
-          <button type="reset" class="btn btn-danger"><i class="fab fa-digital-ocean" id="limpiar"></i> Limpiar</button>
+          <button type="submit" class="btn btn-dark" id="validate"><i class="fas fa-sign-in-alt"></i> Validar</button>
+          <button type="reset" class="btn btn-danger" id="limpiar"><i class="fab fa-digital-ocean"></i> Limpiar</button>
           <button type="button" class="btn btn-success" id="registro"> Registrarse </button>
         </form>
         <div class="col-12 volver">
@@ -90,43 +100,112 @@
     $(document).ready(function () {
       console.log('Jquery funcionando')
 
-      //Validación
-      var form = new FormData();
-      form.append("username", "nicolas");
-      form.append("email", "nicolas@gmail.com");
-      form.append("password1", "12345678");
-      form.append("password2", "12345678");
+      $('#error-user').hide();
+      $('#error-password').hide();
+      $('#error-password2').hide();
+      $('#error-conf').hide();
+      $('#error-user2').hide();
+      $('#error-correo').hide();
+      $('#error-correo2').hide();
 
-      var settings = {
-        "url": "http://nriverv.pythonanywhere.com/api/v1/validation/all/",
-        "method": "POST",
-        "processData": false,
-        "mimeType": "multipart/form-data",
-        "contentType": false,
-        "data": form
-      };
-
-      $.ajax(settings).done(function (response) {
-        json = JSON.parse(response);
-        console.log('El usuario ya existe', json.errorUsername);
+      $('#limpiar').click(function(){
+        $('#error-user').hide();
+        $('#error-password').hide();
+        $('#error-password2').hide();
+        $('#error-conf').hide();
+        $('#error-user2').hide(); 
+        $('#error-correo').hide();
+        $('#error-correo2').hide(); 
       });
+      
+      $('#validate').click(function(){
+        event.preventDefault();
+        var nombre = $('#nombre').val().trim();  
 
-      $(function () {
-        let ocultois = false;
-        $('#validar').click(function(){
-          if (ocultois) {
-            $('#registro').show();
-          } else {
-            $('#registro').hide();
+        if(!(nombre.length <=4 && nombre.length>=16)){
+          $('error-user').show();
+        }else{
+          $('error-user').hide();
+        }
+
+        console.log('nombre: ', nombre);
+
+        var clave = $('#clave').val();
+        var clave2 = $('#clave2').val();
+
+        if (clave !== clave2){
+          $('error-conf').show();
+        }else{
+          $('error-conf').hide();
+        }
+
+        if(!(clave.length <=8 && clave.length>=16)){
+          $('error-password').show();
+        }else{
+          $('error-password').hide();
+        }
+
+        console.log('clave: ', clave);
+
+      
+        var form = new FormData();
+        form.append("username", nombre);
+        form.append("email", correo);
+        form.append("password1", clave);
+        form.append("password2", clave2);
+
+        var settings = {
+          "url": "http://nriverv.pythonanywhere.com/api/v1/validation/all/",
+          "method": "POST",
+          "processData": false,
+          "mimeType": "multipart/form-data",
+          "contentType": false,
+          "data": form
+        };
+
+        $.ajax(settings).done(function (response) {
+          var respuesta_json = JSON.parse(response);
+
+          if(respuesta_json.errorUsername){
+            $('#error-user2').show();
+          }else{
+            $('#error-user2').hide();
           }
-          
 
+          if(respuesta_json.errorEmail){
+            $('#error-correo').show();
+          }else{
+            $('#error-correo').hide();
+          }
+
+          if(respuesta_json.errorPassword){
+            $('#error-password2').show();
+          }else{
+            $('#error-passowrd2').hide();
+          }
+
+          windows.location = 'home.html';
+        }).fail(function(){
+             
+        });   
+
+        function validarCorreo($correo) {
+          var Regcorreo =/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return Regcorreo.test( $correo );
+        }
+        console.log('Validar correo', validarCorreo('Ejemplo: ejemplo@gmail.com'));
+
+        function validarPassword($clave) {
+          var Regclave =/^[\-\+]?\d+$/;
+          return Regclave.test( $clave );
+        }
+        console.log('Validar clave', validarPassword('Cáracteres inválidos'));
+
+        $("#formi").validationEngine('attach', { showArrow: false, showArrowOnRadioAndCheckbox: false, showPrompts: true
         });
+        
+        
       });
-
-      $("#formi").validationEngine('attach', { showArrow: false, showArrowOnRadioAndCheckbox: false, showPrompts: true 
-      });
-
     });
   </script>
 

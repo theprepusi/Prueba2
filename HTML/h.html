@@ -1,0 +1,29 @@
+
+var formi = new FormData();
+formi.append("username", "nicolas");
+formi.append("email", "nicolas@gmail.com");
+formi.append("password1", "12345678");
+formi.append("password2", "12345678");
+
+
+
+
+
+//AASDASDASSASAF
+
+
+      var settings = {
+        "url": "http://nriverv.pythonanywhere.com/api/v1/validation/all/",
+        "method": "POST",
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": form
+      };
+
+      $.ajax(settings).done(function (response) {
+        json = JSON.parse(response);
+        console.log('El usuario ya existe', json.errorUsername);
+      });
+      $("#formi").validationEngine('attach', {
+        showArrow: false, showArrowOnRadioAndCheckbox: false, showPrompts: true
